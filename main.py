@@ -1,67 +1,78 @@
 # app.py
 import streamlit as st
+from ui import apply_full_theme, sidebar_info, get_theme_color
 from config import PREFIXES
-from ui import select_prefix, apply_theme, sidebar_info
 from generator import generate_numbers
 from exporter import export_data
 
 # ---------------------------
-# 🌐 Streamlit Page Config
-# ---------------------------
-st.set_page_config(page_title="BD Mobile Number Generator", layout="wide")
-
-# ---------------------------
-# Sidebar Info
+# Sidebar
 # ---------------------------
 sidebar_info()
 
 # ---------------------------
-# Main Header
-# ---------------------------
-st.markdown("<h1 style='text-align:center;'>📱 Bangladesh Mobile Number Generator</h1>", unsafe_allow_html=True)
-
-# ---------------------------
 # Operator Selection
 # ---------------------------
-operator = st.selectbox("Choose Operator", options=list(PREFIXES.keys()), format_func=lambda x: x.capitalize())
+operator = st.selectbox("Choose Operator:", list(PREFIXES.keys()), index=0)
+apply_full_theme(operator)  # Apply operator-specific full theme
 
-# Apply operator theme dynamically
-apply_theme(operator)
+# Prefix selection
+prefix = PREFIXES[operator][0] if len(PREFIXES[operator]) == 1 else st.selectbox(
+    "Choose Prefix:", PREFIXES[operator]
+)
+
+# Number of phone numbers to generate
+count = st.number_input(
+    "Number of numbers:",
+    min_value=100,
+    max_value=5000,
+    value=3000,
+    step=100
+)
+
+# Output format selection
+file_format = st.radio(
+    "Output Format:",
+    ["xlsx", "csv"],
+    index=0,
+    horizontal=True
+)
+
+st.divider()
 
 # ---------------------------
-# Prefix Selection
+# Generate Numbers
 # ---------------------------
-prefix = select_prefix(operator)
+generate_clicked = st.button("Generate Numbers", key="generate_fullwidth")
 
-# ---------------------------
-# Number Count Input
-# ---------------------------
-count = st.slider("How many numbers to generate?", min_value=100, max_value=5000, value=3000, step=100)
-
-# ---------------------------
-# File Format Selection
-# ---------------------------
-file_format = st.radio("Select Output Format", options=["xlsx", "csv"], index=0)
-
-# ---------------------------
-# Generate Button
-# ---------------------------
-if st.button("Generate Numbers 🚀"):
-    if not prefix:
-        st.error("Prefix not selected. Cannot generate numbers.")
-    else:
+if generate_clicked:
+    with st.spinner("Generating numbers..."):
         numbers = generate_numbers(operator, prefix, count)
-        st.success(f"✅ Generated {len(numbers)} numbers for {operator.capitalize()}!")
 
-        # Preview first 10 numbers
-        st.dataframe(numbers[:10], width=400)
+    # Preview title with operator theme color
+    theme_color = get_theme_color()
+    st.markdown(f"""
+        <h3 style='text-align:center; color:{theme_color}; margin-top:20px;'>
+        Preview of Generated {operator} Numbers
+        </h3>
+    """, unsafe_allow_html=True)
 
-        # Export and download
-        buffer, mime, filename = export_data(numbers, file_format)
-        st.download_button(
-            label=f"📥 Download {file_format.upper()} File",
-            data=buffer,
-            file_name=filename,
-            mime=mime,
-            use_container_width=True
-        )
+    # Display table preview
+    st.dataframe(numbers.head(10), use_container_width=True)
+
+    # Export & Download button (fully themed)
+    buffer, mime, filename = export_data(numbers, file_format)
+    st.download_button(
+        "📥 Download Generated Numbers",
+        buffer,
+        file_name=filename,
+        mime=mime
+    )
+
+# Footer
+st.markdown("""
+    <p style='text-align:center; margin-top:30px; font-size:12px; color:#555;'>
+    Demo available at: <a href='https://bdnumbergen.streamlit.app/' target='_blank'>
+    https://bdnumbergen.streamlit.app/</a>
+    </p>
+""", unsafe_allow_html=True)

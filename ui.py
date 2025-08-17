@@ -88,20 +88,20 @@ def sidebar_info():
     """Sidebar with project info and author."""
     with st.sidebar:
         st.title("📌 About This Project")
-        st.markdown("""
+        st.caption("""
             Generate **Bangladesh mobile numbers** quickly and easily.
             Select operator, prefix, count, and download in `xlsx` or `csv`.
         """)
 
         st.title("👨‍💻 Author: Tanvir Anzum")
-        st.markdown("""
-            AI & Data Researcher | ML/NLP | Data & Growth Strategist  
+        st.caption("""
+            AI & Data Researcher | ML/NLP | Data & Growth Strategist
+                      
             Passionate about creating **intelligent tools** and datasets.
         """)
 
         st.markdown("""
-            🔗 [LinkedIn](https://www.linkedin.com/in/aanzum)  
-            🔗 [Demo](https://bdnumbergen.streamlit.app/)
+            🔗[LinkedIn](https://www.linkedin.com/in/aanzum) | 🔗[GitHub](https://github.com/aanzum7)
         """)
 
 

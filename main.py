@@ -71,8 +71,11 @@ if generate_clicked:
 
 # Footer
 st.markdown("""
-    <p style='text-align:center; margin-top:30px; font-size:12px; color:#555;'>
-    Demo available at: <a href='https://bdnumbergen.streamlit.app/' target='_blank'>
-    https://bdnumbergen.streamlit.app/</a>
-    </p>
+    <div style='text-align:center; margin-top:20px; font-size:12px; color:#555; line-height:1.5;'>
+        Check out other projects: 
+        <a href='https://sites.google.com/view/anzum7/ai-data-explorations' target='_blank' 
+           style='color:#555; text-decoration:none; font-weight:bold;'>AI & Data Explorations</a> | 
+        <a href='https://anzum-ai.streamlit.app/' target='_blank' 
+           style='color:#555; text-decoration:none; font-weight:bold;'>Chat with my AI Clone</a>
+    </div>
 """, unsafe_allow_html=True)

@@ -11,7 +11,7 @@ PREFIXES = {
 # Full themes per operator
 THEMES = {
     "Airtel": {
-        "background": "#e05151",
+        "background": "#ff9b9b",
         "header": "#e60000",
         "button": "#e60000",
         "button_hover": "#cc0000",
@@ -23,7 +23,7 @@ THEMES = {
         "table_row2": "#ffe6e6"
     },
     "Grameenphone": {
-        "background": "#89aee5",
+        "background": "#b4cff8",
         "header": "#0073e6",
         "button": "#0073e6",
         "button_hover": "#0059b3",
@@ -35,7 +35,7 @@ THEMES = {
         "table_row2": "#e6f0ff"
     },
     "Robi": {
-        "background": "#c34f7d",
+        "background": "#efa4c2",
         "header": "#9b0056",
         "button": "#9b0056",
         "button_hover": "#7a0040",
@@ -47,7 +47,7 @@ THEMES = {
         "table_row2": "#ffe6f0"
     },
     "Banglalink": {
-        "background": "#df7f48",
+        "background": "#edb28f",
         "header": "#ff6600",
         "button": "#ff6600",
         "button_hover": "#cc5200",
